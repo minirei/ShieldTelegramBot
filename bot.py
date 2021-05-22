@@ -168,10 +168,14 @@ def morning_hourly(context):
     to_send_morning = [id for id in master_ids if id not in sent_morning]
 
     for chat_id in to_send_morning:
-        context.bot.send_message(chat_id=chat_id,
-                                 text = 'You are eligible for AM submission.\nPlease key in your temperature.',
-                                 reply_markup=temperature_markup
-                                 )
+        try:
+            context.bot.send_message(chat_id=chat_id,
+                                    text = 'You are eligible for AM submission.\nPlease key in your temperature.',
+                                    reply_markup=temperature_markup
+                                    )
+        except:
+            logger.info("failed id: {}".format(chat_id))
+            continue
 
 def afternoon_hourly(context):
     global master_ids
@@ -184,10 +188,14 @@ def afternoon_hourly(context):
     to_send_afternoon = [id for id in master_ids if id not in sent_afternoon]
 
     for chat_id in to_send_afternoon:
-        context.bot.send_message(chat_id=chat_id,
-                                 text = 'You are eligible for PM submission.\nPlease key in your temperature.',
-                                 reply_markup=temperature_markup
-                                 )
+        try:
+            context.bot.send_message(chat_id=chat_id,
+                                    text = 'You are eligible for PM submission.\nPlease key in your temperature.',
+                                    reply_markup=temperature_markup
+                                    )
+        except:
+            logger.info("failed id: {}".format(chat_id))
+            continue
 
 #initialise global scheduling variables: jobs
 global job_morning_hourly
